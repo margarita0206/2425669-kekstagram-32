@@ -1,21 +1,20 @@
-function checkString(string, maxNumber) {
-  return string.length <= maxNumber;
-}
+const checkString = (string, maxLength) => string <= maxLength;
 
-checkString('проверяемая строка', 20);
-checkString('проверяемая строка', 18);
-checkString('проверяемая строка', 10);
+checkString('проверяемая строка', 20); //true
+checkString('проверяемая строка', 18); //true
+checkString('проверяемая строка', 10); //false
 
-function stringPalindrom(checkedString) {
-  const normalizeString = checkedString.replaceAll().toUpperCase();
-  let string = '';
+function isPalindrom(checkedString) {
+  const normalizeString = checkedString.replaceAll(' ', '').toLowerCase();
+  let reversed = '';
+
   for (let i = normalizeString.length - 1; i >= 0; i--){
-    string += normalizeString[i];
+    reversed = reversed + normalizeString[i];
   }
-  return normalizeString === string;
+  return checkedString === reversed;
 }
 
-stringPalindrom('топот');
-stringPalindrom('ДовОд');
-stringPalindrom('Кекс');
-stringPalindrom('Лёша на полке клопа нашёл ');
+isPalindrom('топот'); //true
+isPalindrom('ДовОд'); //true
+isPalindrom('Кекс'); //false
+isPalindrom('Лёша на полке клопа нашёл '); //true
