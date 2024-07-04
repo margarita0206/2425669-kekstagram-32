@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Маргарита  Смирнова](https://up.htmlacademy.ru/javascript/32/user/2425669).
-* Наставник: 'Виктория Никитина' (https://htmlacademy.ru/profile/id1217273).
+* Наставник: [Виктория Никитина] (https://htmlacademy.ru/profile/id1217273).
 
 ---
 
