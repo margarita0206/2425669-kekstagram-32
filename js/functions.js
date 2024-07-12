@@ -18,3 +18,30 @@ isPalindrom('топот'); //true
 isPalindrom('ДовОд'); //true
 isPalindrom('Кекс'); //false
 isPalindrom('Лёша на полке клопа нашёл '); //true
+
+//задача делу-время
+
+const converseToMinutes = (timeStroke) => {
+  const timeInMinutes = timeStroke.split(':');
+  return parseInt(timeInMinutes[0], 10) * 60 + parseInt(timeInMinutes[1], 10);
+};
+
+const isMeetInWork = (workStartTime, workEndTime, meetStartTime, meetDuration) => {
+  const workStart = converseToMinutes(workStartTime);
+  const workEnd = converseToMinutes(workEndTime);
+  const meetStart = converseToMinutes(meetStartTime);
+
+  if (meetStart >= workStart) {
+    if ((meetStart + meetDuration) <= workEnd) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+isMeetInWork('08:00', '17:30', '14:00', 90); // true
+isMeetInWork('8:0', '10:0', '8:0', 120); // true
+isMeetInWork('08:00', '14:30', '14:00', 90); // false
+isMeetInWork('14:00', '17:30', '08:0', 90); // false
+isMeetInWork('8:00', '17:30', '08:00', 900); // false
