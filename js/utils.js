@@ -6,14 +6,16 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-function getUniqueInteger (min,max) {
+const getUniqueInteger = (min,max) => {
   const previousValues = [];
 
   return function () {
+    let currentValue = getRandomInteger(min, max);
+
     if (previousValues.length >= (max - min + 1)) {
       return null;
     }
-    let currentValue = getRandomInteger(min, max);
+
     while (previousValues.includes(currentValue)) {
       currentValue = getRandomInteger(min, max);
     }
@@ -21,7 +23,7 @@ function getUniqueInteger (min,max) {
 
     return currentValue;
   };
-}
+};
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
