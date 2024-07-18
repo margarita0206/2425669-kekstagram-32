@@ -1,4 +1,9 @@
 import {randomPosts} from './data.js';
 import {generateThumbnails} from './thumbnail.js';
-generateThumbnails(randomPosts());
+import './modal-pictures.js';
 
+const currentPictures = randomPosts();
+
+generateThumbnails(currentPictures);
+
+export {currentPictures};
