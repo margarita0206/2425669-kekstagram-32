@@ -1,11 +1,16 @@
+import { openBigPictureWindow } from './modal-pictures.js';
+
 const thumbNailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
 
-const createThumbnail = ({url, description, likes, comments}) => {
-  const thumbnail = thumbNailTemplate.cloneNode(true);
+const localPictures = [];
 
-  thumbnail.querySelector('.picture__img').src = url;
-  thumbnail.querySelector('.picture__img').alt = description;
+const createThumbnail = ({id, url, description, likes, comments}) => {
+  const thumbnail = thumbNailTemplate.cloneNode(true);
+  thumbnail.dataset.id = id;
+  const pictureImage = thumbnail.querySelector('.picture__img');
+  pictureImage.src = url;
+  pictureImage.alt = description;
   thumbnail.querySelector('.picture__likes').textContent = likes;
   thumbnail.querySelector('.picture__comments').textContent = comments.length;
 
@@ -13,14 +18,23 @@ const createThumbnail = ({url, description, likes, comments}) => {
 };
 
 const generateThumbnails = (pictures) => {
-  const fragment = document.createDocumentFragment();
-
+  localPictures.length = 0;
+  localPictures.push(...pictures.slice());
+  const pictureFragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const thumbnail = createThumbnail(picture);
-    fragment.append(thumbnail);
+    pictureFragment.append(thumbnail);
   });
 
-  container.append(fragment);
+  container.append(pictureFragment);
 };
 
-export { generateThumbnails };
+container.addEventListener('click', (evt) => {
+  if(evt.target.closest('.picture')) {
+    const currentId = Number(evt.target.closest('.picture').dataset.id);
+    const currentPicture = localPictures.find(({id}) => id === currentId);
+    openBigPictureWindow(currentPicture);
+  }
+});
+
+export { generateThumbnails, container };
