@@ -1,5 +1,9 @@
-import { isValid } from './img-upload-form-validate';
-import { isEscapeKey } from './utils';
+import { isValid } from './form-validate.js';
+import { isEscapeKey } from './utils.js';
+import { resetScale } from './scale.js';
+import {
+  reset as resetEffect
+} from './effects-img.js';
 
 const imgUploadform = document.querySelector('.img-upload__form');
 const redactForm = document.querySelector('.img-upload__overlay');
@@ -8,16 +12,17 @@ const imgUploadCancelButton = document.querySelector('.img-upload__cancel');
 const fieldComments = document.querySelector('.text__description');
 const fieldHashtag = document.querySelector('.text__hashtags');
 
-
 const openRedactForm = () => {
   redactForm.classList.remove('hidden');
-  document.body.classList.add('.modal-open');
+  document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeRedactForm = () => {
-  redactForm.classList.add('.hidden');
-  document.body.classList.remove('.modal-open');
+  resetScale();
+  resetEffect();
+  redactForm.classList.add('hidden');
+  document.body.classList.remove('modal-open');
   imgUploadInput.value = '';
   document.removeEventListener('keydown', onDocumentKeydown);
 };
@@ -54,4 +59,3 @@ imgUploadform.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
-

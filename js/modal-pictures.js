@@ -66,14 +66,14 @@ const onDocumentKeydown = (evt) => {
 
 const openBigPictureWindow = (photo) => {
   bigPicturesModal.classList.remove('hidden');
-  body.classList.add('.modal-open');
+  body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   fillDataBigPicture(photo);
 };
 
 const closeBigPictureWindow = () => {
   bigPicturesModal.classList.add('hidden');
-  body.classList.remove('.modal-open');
+  body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
 };
