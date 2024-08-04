@@ -1,40 +1,37 @@
 import { openBigPictureWindow } from './modal-pictures.js';
+import { isEnterKey } from './utils.js';
 
-const thumbNailTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const container = document.querySelector('.pictures');
+const picturesContainer = document.querySelector('.pictures');
 
-const localPictures = [];
+const pictureTemplate = document.querySelector('#picture')
+  .content
+  .querySelector('.picture');
 
-const createThumbnail = ({id, url, description, likes, comments}) => {
-  const thumbnail = thumbNailTemplate.cloneNode(true);
-  thumbnail.dataset.id = id;
-  const pictureImage = thumbnail.querySelector('.picture__img');
-  pictureImage.src = url;
-  pictureImage.alt = description;
-  thumbnail.querySelector('.picture__likes').textContent = likes;
-  thumbnail.querySelector('.picture__comments').textContent = comments.length;
+const generateThumbnails = (picture) => {
+  picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
+  const similarListFragment = document.createDocumentFragment();
+  picture.forEach(({ id, url, description, likes, comments }) => {
+    const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.querySelector('.picture__img').dataset.id = id;
+    pictureElement.querySelector('.picture__img').src = url;
+    pictureElement.querySelector('.picture__img').alt = description;
+    pictureElement.querySelector('.picture__likes').textContent = likes;
+    pictureElement.querySelector('.picture__comments').textContent = comments.length;
+    similarListFragment.appendChild(pictureElement);
 
-  return thumbnail;
-};
+    pictureElement.addEventListener('click', () => {
+      openBigPictureWindow({ url, description, likes, comments });
+    });
 
-const generateThumbnails = (pictures) => {
-  localPictures.length = 0;
-  localPictures.push(...pictures.slice());
-  const pictureFragment = document.createDocumentFragment();
-  pictures.forEach((picture) => {
-    const thumbnail = createThumbnail(picture);
-    pictureFragment.append(thumbnail);
+    pictureElement.addEventListener('keydown', (evt) => {
+      if (isEnterKey(evt)) {
+        openBigPictureWindow({ url, description, likes, comments });
+      }
+    });
+
+    picturesContainer.append(similarListFragment);
+    pictureElement.classList.remove('hidden');
   });
-
-  container.append(pictureFragment);
 };
 
-container.addEventListener('click', (evt) => {
-  if(evt.target.closest('.picture')) {
-    const currentId = Number(evt.target.closest('.picture').dataset.id);
-    const currentPicture = localPictures.find(({id}) => id === currentId);
-    openBigPictureWindow(currentPicture);
-  }
-});
-
-export { generateThumbnails, container };
+export { generateThumbnails };
