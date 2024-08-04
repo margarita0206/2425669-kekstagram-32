@@ -18,7 +18,7 @@ export const MIN_SCALE = 25;
 export const MAX_SCALE = 100;
 export const DEFAULT_SCALE = 100;
 
-const EFFECT = {
+export const effect = {
   DEFAULT: 'none',
   CHROME: 'chrome',
   SEPIA: 'sepia',
@@ -27,63 +27,63 @@ const EFFECT = {
   HEAT: 'heat',
 };
 
-const EFFECT_TO_FILTER = {
-  [EFFECT.CHROME]: {
+export const effectToFilter = {
+  [effect.CHROME]: {
     style: 'grayscale',
     unit: '',
   },
-  [EFFECT.SEPIA]: {
+  [effect.SEPIA]: {
     style: 'sepia',
     unit: '',
   },
-  [EFFECT.MARVIN]: {
+  [effect.MARVIN]: {
     style: 'invert',
     unit: '%',
   },
-  [EFFECT.PHOBOS]: {
+  [effect.PHOBOS]: {
     style: 'blur',
     unit: 'px',
   },
-  [EFFECT.HEAT]: {
+  [effect.HEAT]: {
     style: 'brightness',
     unit: '',
   },
 };
 
-const EFFECT_TO_SLIDER_OPTIONS = {
-  [EFFECT.DEFAULT]: {
+export const effectToSliderOption = {
+  [effect.DEFAULT]: {
     min: 0,
     max: 100,
     step: 1,
   },
-  [EFFECT.CHROME]: {
+  [effect.CHROME]: {
     min: 0,
     max: 1,
     step: 0.1,
   },
-  [EFFECT.SEPIA]: {
+  [effect.SEPIA]: {
     min: 0,
     max: 1,
     step: 0.1,
   },
-  [EFFECT.MARVIN]: {
+  [effect.MARVIN]: {
     min: 0,
     max: 100,
     step: 1,
   },
-  [EFFECT.PHOBOS]: {
+  [effect.PHOBOS]: {
     min: 0,
     max: 3,
     step: 0.1,
   },
-  [EFFECT.HEAT]: {
+  [effect.HEAT]: {
     min: 1,
     max: 3,
     step: 0.1,
   },
 };
 
-const COMMENT_NAMES = [
+export const COMMENT_NAMES = [
   'Анна',
   'Александр',
   'Светлана',
@@ -106,7 +106,7 @@ const COMMENT_NAMES = [
   'Алиса'
 ];
 
-const POSTS_COMMENTS = [
+export const POSTS_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -115,7 +115,7 @@ const POSTS_COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const DESCRIPTIONS = [
+export const DESCRIPTIONS = [
   'Моя жизнь меняется, потому что меняю ее я.',
   'Не слушай никого, лишь твое сердце, оно все знает.',
   'Чтобы достичь новых берегов, мы должны плыть, а не дрейфовать.',
@@ -126,12 +126,3 @@ const DESCRIPTIONS = [
   'Как мало нужно для счастья.',
   'Этой фотографии описание не нужно'
 ];
-
-export {
-  COMMENT_NAMES,
-  POSTS_COMMENTS,
-  DESCRIPTIONS,
-  EFFECT,
-  EFFECT_TO_FILTER,
-  EFFECT_TO_SLIDER_OPTIONS
-};
