@@ -5,10 +5,14 @@ import {
   DEFAULT_SCALE
 } from './constant.js';
 
+import { loadingPicture } from './load-pictures.js';
+
 const scaleInput = document.querySelector('.scale__control--value');
 const smallButtonElement = document.querySelector('.scale__control--smaller');
 const bigButtonElement = document.querySelector('.scale__control--bigger');
 const imgPreviewElement = document.querySelector('.img-upload__preview img');
+
+loadingPicture();
 
 const scaleImage = (value) => {
   imgPreviewElement.style.transform = `scale(${value / 100})`;

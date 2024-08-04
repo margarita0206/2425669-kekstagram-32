@@ -1,3 +1,11 @@
+export const FILE_TYPES = ['jpg', 'jpeg', 'png', 'pdf'];
+
+export const PICTURES_COUNT = 10;
+
+export const TIME_OUT_DELAY = 500;
+
+export const SHOW_TIME = 5000;
+
 export const MIN_POSTS_COUNT = 1;
 export const MAX_POSTS_COUNT = 25;
 export const AVATAR_MIN_COUNT = 1;

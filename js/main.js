@@ -1,9 +1,9 @@
 import { generateThumbnails } from './thumbnail.js';
 import { getData, sendData } from './api.js';
-import { showAlert } from './utils.js';
+import { showAlert, debounce } from './utils.js';
 import { setOnFormSubmit, imgUploadForm } from './form-modal.js';
 import { showMessageSuccess, showMessageError } from './success-error.js';
-import './filters.js';
+import { init as initFilter, getFilteredPictures } from './filters.js';
 
 setOnFormSubmit(async (data) => {
   try {
@@ -17,7 +17,9 @@ setOnFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  generateThumbnails(data);
+  const debounceRenderGallery = debounce(generateThumbnails);
+  initFilter(data, debounceRenderGallery);
+  generateThumbnails(getFilteredPictures());
 } catch {
   showAlert();
 }
