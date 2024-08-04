@@ -1,7 +1,7 @@
 import {
-  EFFECT,
-  EFFECT_TO_FILTER,
-  EFFECT_TO_SLIDER_OPTIONS
+  effect,
+  effectToFilter,
+  effectToSliderOption
 } from './constant.js';
 
 const modalElement = document.querySelector('.img-upload');
@@ -9,12 +9,11 @@ const imgElement = modalElement.querySelector('.img-upload__preview');
 const effectsElement = modalElement.querySelector('.effects');
 const slider = modalElement.querySelector('.effect-level__slider');
 const sliderContainer = modalElement.querySelector('.img-upload__effect-level');
+const effectLevel = modalElement.querySelector('.effect-level__value');
 
-const effectLevelElement = modalElement.querySelector('.effect-level__value');
+let chosenEffect = effect.DEFAULT;
 
-let chosenEffect = EFFECT.DEFAULT;
-
-const isDefault = () => chosenEffect === EFFECT.DEFAULT;
+const isDefault = () => chosenEffect === effect.DEFAULT;
 
 const setImageStyle = () => {
   if (isDefault()) {
@@ -22,9 +21,14 @@ const setImageStyle = () => {
     return;
   }
 
-  const { value } = effectLevelElement;
-  const { style, unit } = EFFECT_TO_FILTER[chosenEffect];
+  const { value } = effectLevel;
+  const { style, unit } = effectToFilter[chosenEffect];
   imgElement.style.filter = `${style}(${value}${unit})`;
+};
+
+const onSliderUpdate = () => {
+  effectLevel.value = slider.noUiSlider.get();
+  setImageStyle();
 };
 
 const showSlider = () => {
@@ -33,11 +37,6 @@ const showSlider = () => {
 
 const hideSlider = () => {
   sliderContainer.classList.add('hidden');
-};
-
-const onSliderUpdate = () => {
-  effectLevelElement.value = slider.noUiSlider.get();
-  setImageStyle();
 };
 
 const createSlider = ({ min, max, step }) => {
@@ -68,19 +67,19 @@ const setSlider = () => {
   if (isDefault()) {
     hideSlider();
   } else {
-    updateSlider(EFFECT_TO_SLIDER_OPTIONS[chosenEffect]);
+    updateSlider(effectToSliderOption[chosenEffect]);
     showSlider();
   }
 };
 
-const setEffect = (effect) => {
-  chosenEffect = effect;
+const setEffect = (currentEffect) => {
+  chosenEffect = currentEffect;
   setSlider();
   setImageStyle();
 };
 
 const reset = () => {
-  setEffect(EFFECT.DEFAULT);
+  setEffect(effect.DEFAULT);
 };
 
 const onEffectsChange = (evt) => {
@@ -88,7 +87,7 @@ const onEffectsChange = (evt) => {
 };
 
 const init = () => {
-  createSlider(EFFECT_TO_SLIDER_OPTIONS[chosenEffect]);
+  createSlider(effectToSliderOption[chosenEffect]);
   effectsElement.addEventListener('change', onEffectsChange);
 };
 

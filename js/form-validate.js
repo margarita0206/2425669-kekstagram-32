@@ -9,13 +9,14 @@ import {
   init as initEffect
 } from './effects-img.js';
 
-const imgUploadform = document.querySelector('.img-upload__form');
-const fieldComments = imgUploadform.querySelector('.text__description');
-const fieldHashtag = imgUploadform.querySelector('.text__hashtags');
+const imgUploadForm = document.querySelector('.img-upload__form');
+const fieldComments = imgUploadForm.querySelector('.text__description');
+const fieldHashtag = imgUploadForm.querySelector('.text__hashtags');
 
-const pristine = new Pristine(imgUploadform, {
+const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
   errorTextClass: 'img-upload__field-wrapper__error'
 });
 
@@ -69,7 +70,11 @@ pristine.addValidator(
   `Длина комментария не может превышать ${MAX_MESSAGE_LENGTH} символов`
 );
 
-const isValid = () => pristine.validate();
+const resetValidation = () => {
+  pristine.reset();
+};
+
+const isValid = pristine.validate();
 initEffect();
 
-export { isValid };
+export { isValid, resetValidation };

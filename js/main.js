@@ -1,9 +1,23 @@
-import {randomPosts} from './data.js';
-import {generateThumbnails} from './thumbnail.js';
-import './modal-pictures.js';
-import './form-modal.js';
-import './form-validate.js';
+import { generateThumbnails } from './thumbnail.js';
+import { getData, sendData } from './api.js';
+import { showAlert } from './utils.js';
+import { setOnFormSubmit, imgUploadForm } from './form-modal.js';
+import { showMessageSuccess, showMessageError } from './success-error.js';
+import './filters.js';
 
-const currentPictures = randomPosts();
+setOnFormSubmit(async (data) => {
+  try {
+    await sendData(data);
+    imgUploadForm();
+    showMessageSuccess();
+  } catch {
+    showMessageError();
+  }
+});
 
-generateThumbnails(currentPictures);
+try {
+  const data = await getData();
+  generateThumbnails(data);
+} catch {
+  showAlert();
+}

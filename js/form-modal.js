@@ -1,20 +1,27 @@
-import { isValid } from './form-validate.js';
+import { isValid, resetValidation } from './form-validate.js';
 import { isEscapeKey } from './utils.js';
 import { resetScale } from './scale.js';
 import {
   reset as resetEffect
 } from './effects-img.js';
 
-const imgUploadform = document.querySelector('.img-upload__form');
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SUBMITTING: 'Отправляю'
+};
+
+const body = document.querySelector('body');
+const imgUploadForm = document.querySelector('.img-upload__form');
 const redactForm = document.querySelector('.img-upload__overlay');
 const imgUploadInput = document.querySelector('.img-upload__input');
 const imgUploadCancelButton = document.querySelector('.img-upload__cancel');
 const fieldComments = document.querySelector('.text__description');
 const fieldHashtag = document.querySelector('.text__hashtags');
+const submitButton = imgUploadForm.querySelector('.img-upload__submit');
 
 const openRedactForm = () => {
   redactForm.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+  body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -25,6 +32,14 @@ const closeRedactForm = () => {
   document.body.classList.remove('modal-open');
   imgUploadInput.value = '';
   document.removeEventListener('keydown', onDocumentKeydown);
+  resetValidation();
+};
+
+const toggleSubmitButton = (isDisabled) => {
+  submitButton.disabled = isDisabled;
+  submitButton.textContent = isDisabled
+    ? SubmitButtonText.SUBMITTING
+    : SubmitButtonText.IDLE;
 };
 
 imgUploadInput.addEventListener('change', () => {
@@ -35,8 +50,10 @@ imgUploadCancelButton.addEventListener('click', () => {
   closeRedactForm();
 });
 
+const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
+
 function onDocumentKeydown(evt) {
-  if(isEscapeKey(evt)) {
+  if(evt.isEscapeKey && !isErrorMessageShown()) {
     evt.preventDefault();
     closeRedactForm();
   }
@@ -54,8 +71,16 @@ fieldHashtag.addEventListener('keydown', (evt) => {
   }
 });
 
-imgUploadform.addEventListener('submit', (evt) => {
-  if(!isValid()){
+const setOnFormSubmit = (callback) => {
+  imgUploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-  }
-});
+
+    if (isValid) {
+      toggleSubmitButton(true);
+      await callback(new FormData(imgUploadForm));
+      toggleSubmitButton();
+    }
+  });
+};
+
+export { setOnFormSubmit, imgUploadForm };
