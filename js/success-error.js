@@ -7,28 +7,33 @@ const errorFragment = document.createDocumentFragment();
 
 const body = document.querySelector('body');
 
+const onEscapeKeydownSuccess = (evt) => {
+  if (isEscapeKey(evt)) {
+    document.querySelector('.success').remove();
+    document.removeEventListener('keydown', onEscapeKeydownSuccess);
+  }
+};
+
 const showMessageSuccess = () => {
   const messageSuccess = successTemplate.cloneNode(true);
   successFragment.appendChild(messageSuccess);
   body.appendChild(successFragment);
   const buttonSuccess = document.querySelector('.success__button');
   const sectionSuccess = document.querySelector('.success');
-  const successInner = document.querySelector('.success__inner');
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      sectionSuccess.remove();
-    }
-  });
+  document.addEventListener('keydown', onEscapeKeydownSuccess);
   sectionSuccess.addEventListener(('click'), (evt) => {
-    if (evt.target === buttonSuccess) {
+    if (evt.target === buttonSuccess || evt.target.classList.contains('success')) {
       sectionSuccess.remove();
+      document.removeEventListener('keydown', onEscapeKeydownSuccess);
     }
   });
-  sectionSuccess.addEventListener(('click'), (evt) => {
-    if (evt.target === successInner) {
-      sectionSuccess.remove();
-    }
-  });
+};
+
+const onEscapeKeydownError = (evt) => {
+  if (isEscapeKey(evt)) {
+    document.querySelector('.error').remove();
+    document.removeEventListener('keydown', onEscapeKeydownError);
+  }
 };
 
 const showMessageError = () => {
@@ -37,20 +42,11 @@ const showMessageError = () => {
   body.appendChild(errorFragment);
   const buttonError = document.querySelector('.error__button');
   const sectionError = document.querySelector('.error');
-  const errorInner = document.querySelector('.error__inner');
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      sectionError.remove();
-    }
-  });
+  document.addEventListener('keydown', onEscapeKeydownError);
   sectionError.addEventListener(('click'), (evt) => {
-    if (evt.target === buttonError) {
+    if (evt.target === buttonError || evt.target.classList.contains('error')) {
       sectionError.remove();
-    }
-  });
-  sectionError.addEventListener(('click'), (evt) => {
-    if (evt.target === errorInner) {
-      sectionError.remove();
+      document.removeEventListener('keydown', onEscapeKeydownError);
     }
   });
 };

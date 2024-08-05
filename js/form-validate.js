@@ -74,7 +74,7 @@ const resetValidation = () => {
   pristine.reset();
 };
 
-const isValid = pristine.validate();
+const isValid = () => pristine.validate();
 initEffect();
 
 export { isValid, resetValidation };

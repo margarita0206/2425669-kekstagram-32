@@ -5,7 +5,7 @@ import {
 } from './constant.js';
 
 const modalElement = document.querySelector('.img-upload');
-const imgElement = modalElement.querySelector('.img-upload__preview');
+const imgElement = modalElement.querySelector('.img-upload__preview img');
 const effectsElement = modalElement.querySelector('.effects');
 const slider = modalElement.querySelector('.effect-level__slider');
 const sliderContainer = modalElement.querySelector('.img-upload__effect-level');
