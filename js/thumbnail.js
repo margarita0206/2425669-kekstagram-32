@@ -9,7 +9,9 @@ const pictureTemplate = document.querySelector('#picture')
 
 const generateThumbnails = (picture) => {
   picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
+
   const similarListFragment = document.createDocumentFragment();
+
   picture.forEach(({ id, url, description, likes, comments }) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').dataset.id = id;

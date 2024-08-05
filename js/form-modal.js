@@ -33,6 +33,7 @@ const closeRedactForm = () => {
   imgUploadInput.value = '';
   document.removeEventListener('keydown', onDocumentKeydown);
   resetValidation();
+  imgUploadForm.reset();
 };
 
 const toggleSubmitButton = (isDisabled) => {
@@ -52,14 +53,14 @@ imgUploadCancelButton.addEventListener('click', () => {
 
 const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
 
-function onDocumentKeydown(evt) {
-  if(evt.isEscapeKey && !isErrorMessageShown()) {
+function onDocumentKeydown (evt) {
+  if (isEscapeKey(evt) && !isErrorMessageShown()) {
     evt.preventDefault();
     closeRedactForm();
   }
 }
 
-fieldComments.addEventListener('.keydown', (evt) => {
+fieldComments.addEventListener('keydown', (evt) => {
   if(isEscapeKey(evt)) {
     evt.stopPropagation();
   }
@@ -75,7 +76,7 @@ const setOnFormSubmit = (callback) => {
   imgUploadForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
 
-    if (isValid) {
+    if (isValid()) {
       toggleSubmitButton(true);
       await callback(new FormData(imgUploadForm));
       toggleSubmitButton();
@@ -83,4 +84,4 @@ const setOnFormSubmit = (callback) => {
   });
 };
 
-export { setOnFormSubmit, imgUploadForm };
+export { setOnFormSubmit, closeRedactForm };
