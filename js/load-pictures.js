@@ -13,7 +13,7 @@ const loadingPicture = () => {
 
     if (matches) {
       imgUploadPreview.src = URL.createObjectURL(file);
-      imgUploadPreview.computedStyleMap.width = '100%';
+      imgUploadPreview.style.width = '100%';
       effectsPreviews.forEach((preview) => {
         preview.style.backgroundImage = `url('${imgUploadPreview.src}')`;
       });
