@@ -17,7 +17,7 @@ const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'div',
-  errorTextClass: 'img-upload__field-wrapper__error'
+  errorTextClass: 'img-upload__field-wrapper__error',
 });
 
 const normalizeHashtage = (value) => !value.length ? [] : fieldHashtag.value.toLowerCase().replaceAll(SPACE, ' ').trim().split(' ');

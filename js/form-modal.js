@@ -4,6 +4,7 @@ import { resetScale } from './scale.js';
 import {
   reset as resetEffect
 } from './effects-img.js';
+import { loadingPicture } from './load-pictures.js';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
@@ -23,13 +24,14 @@ const openRedactForm = () => {
   redactForm.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  loadingPicture();
 };
 
 const closeRedactForm = () => {
   resetScale();
   resetEffect();
   redactForm.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   imgUploadInput.value = '';
   document.removeEventListener('keydown', onDocumentKeydown);
   resetValidation();
@@ -45,6 +47,7 @@ const toggleSubmitButton = (isDisabled) => {
 
 imgUploadInput.addEventListener('change', () => {
   openRedactForm();
+
 });
 
 imgUploadCancelButton.addEventListener('click', () => {
@@ -53,7 +56,7 @@ imgUploadCancelButton.addEventListener('click', () => {
 
 const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
 
-function onDocumentKeydown (evt) {
+function onDocumentKeydown(evt) {
   if (isEscapeKey(evt) && !isErrorMessageShown()) {
     evt.preventDefault();
     closeRedactForm();
