@@ -3,6 +3,7 @@ import {
   effectToFilter,
   effectToSliderOption
 } from './constant.js';
+import { loadingPicture } from './load-pictures.js';
 
 const modalElement = document.querySelector('.img-upload');
 const imgElement = modalElement.querySelector('.img-upload__preview img');
@@ -10,6 +11,8 @@ const effectsElement = modalElement.querySelector('.effects');
 const slider = modalElement.querySelector('.effect-level__slider');
 const sliderContainer = modalElement.querySelector('.img-upload__effect-level');
 const effectLevel = modalElement.querySelector('.effect-level__value');
+
+loadingPicture();
 
 let chosenEffect = effect.DEFAULT;
 
@@ -20,7 +23,6 @@ const setImageStyle = () => {
     imgElement.style.filter = null;
     return;
   }
-
   const { value } = effectLevel;
   const { style, unit } = effectToFilter[chosenEffect];
   imgElement.style.filter = `${style}(${value}${unit})`;

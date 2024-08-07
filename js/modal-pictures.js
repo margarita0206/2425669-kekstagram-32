@@ -61,6 +61,7 @@ const onDocumentKeydown = (evt) => {
   if(isEscapeKey(evt)) {
     evt.preventDefault();
     bigPicturesModal.classList.add('hidden');
+    body.classList.remove('modal-open');
   }
 };
 
@@ -78,7 +79,9 @@ const closeBigPictureWindow = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
-closeBigPicturesButton.addEventListener('click', closeBigPictureWindow);
+closeBigPicturesButton.addEventListener('click', () => {
+  closeBigPictureWindow();
+});
 
 loadCommentsButton.addEventListener('click', renderComments);
 
