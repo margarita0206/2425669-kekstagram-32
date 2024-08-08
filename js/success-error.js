@@ -7,10 +7,10 @@ const errorFragment = document.createDocumentFragment();
 
 const body = document.querySelector('body');
 
-const onEscapeKeydownSuccess = (evt) => {
+const onEscapeSuccessKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     document.querySelector('.success').remove();
-    document.removeEventListener('keydown', onEscapeKeydownSuccess);
+    document.removeEventListener('keydown', onEscapeSuccessKeydown);
   }
 };
 
@@ -20,19 +20,19 @@ const showMessageSuccess = () => {
   body.appendChild(successFragment);
   const buttonSuccess = document.querySelector('.success__button');
   const sectionSuccess = document.querySelector('.success');
-  document.addEventListener('keydown', onEscapeKeydownSuccess);
+  document.addEventListener('keydown', onEscapeSuccessKeydown);
   sectionSuccess.addEventListener(('click'), (evt) => {
     if (evt.target === buttonSuccess || evt.target.classList.contains('success')) {
       sectionSuccess.remove();
-      document.removeEventListener('keydown', onEscapeKeydownSuccess);
+      document.removeEventListener('keydown', onEscapeSuccessKeydown);
     }
   });
 };
 
-const onEscapeKeydownError = (evt) => {
+const onEscapeErrorKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     document.querySelector('.error').remove();
-    document.removeEventListener('keydown', onEscapeKeydownError);
+    document.removeEventListener('keydown', onEscapeErrorKeydown);
   }
 };
 
@@ -42,11 +42,11 @@ const showMessageError = () => {
   body.appendChild(errorFragment);
   const buttonError = document.querySelector('.error__button');
   const sectionError = document.querySelector('.error');
-  document.addEventListener('keydown', onEscapeKeydownError);
+  document.addEventListener('keydown', onEscapeErrorKeydown);
   sectionError.addEventListener(('click'), (evt) => {
     if (evt.target === buttonError || evt.target.classList.contains('error')) {
       sectionError.remove();
-      document.removeEventListener('keydown', onEscapeKeydownError);
+      document.removeEventListener('keydown', onEscapeErrorKeydown);
     }
   });
 };

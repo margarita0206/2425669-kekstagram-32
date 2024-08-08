@@ -10,7 +10,7 @@ const commentShowCount = bigPicturesModal.querySelector('.social__comment-shown-
 const commentsList = bigPicturesModal.querySelector('.social__comments');
 const commentTemplate = bigPicturesModal.querySelector('.social__comment');
 
-const localComment = [];
+const localComments = [];
 let renderedCommentsCount = 0;
 let total = 0;
 
@@ -29,7 +29,7 @@ const renderStatistic = () => {
 
 const renderComments = () => {
   const commentFragment = document.createDocumentFragment();
-  localComment.splice(0, 5).forEach((item) => {
+  localComments.splice(0, 5).forEach((item) => {
     const commentElement = commentTemplate.cloneNode(true);
     commentElement.querySelector('.social__picture').src = item.avatar;
     commentElement.querySelector('.social__picture').alt = item.name;
@@ -43,18 +43,20 @@ const renderComments = () => {
   renderStatistic();
 };
 
+const onCommentsLoaderClick = () => renderComments();
+
 const fillDataBigPicture = ({ url, likes, comments, description}) => {
   bigPicturesModal.querySelector('.big-picture__img img').src = url;
   bigPicturesModal.querySelector('.likes-count').textContent = likes;
   bigPicturesModal.querySelector('.social__caption').textContent = description;
 
-  localComment.length = 0;
-  localComment.push(...comments.slice());
+  localComments.length = 0;
+  localComments.push(...comments.slice());
   commentsList.innerHTML = '';
   renderedCommentsCount = 0;
   total = comments.length;
 
-  renderComments();
+  onCommentsLoaderClick();
 };
 
 const onDocumentKeydown = (evt) => {
@@ -83,6 +85,6 @@ closeBigPicturesButton.addEventListener('click', () => {
   closeBigPictureWindow();
 });
 
-loadCommentsButton.addEventListener('click', renderComments);
+loadCommentsButton.addEventListener('click', onCommentsLoaderClick);
 
 export { openBigPictureWindow };
