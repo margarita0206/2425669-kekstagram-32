@@ -7,12 +7,12 @@ const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const generateThumbnails = (picture) => {
+const generateThumbnails = (pictures) => {
   picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
 
   const similarListFragment = document.createDocumentFragment();
 
-  picture.forEach(({ id, url, description, likes, comments }) => {
+  pictures.forEach(({ id, url, description, likes, comments }) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').dataset.id = id;
     pictureElement.querySelector('.picture__img').src = url;
